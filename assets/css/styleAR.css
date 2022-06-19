@@ -18,7 +18,7 @@ body {
   body::before {
     content: "";
     position: fixed;
-    background: #040404 url("../img/taherbgAR.png") top right no-repeat;
+    background: #040404 url("../img/taherbgAR.jpeg") top right no-repeat;
     background-size: cover;
     left: 0;
     right: 0;
@@ -226,8 +226,10 @@ body {
   * Mobile Navigation 
   */
   .mobile-nav-toggle {
-    color: #fff;
-    font-size: 28px;
+    color: #00ADB5;
+    -webkit-text-stroke-width: 1.4px;
+    -webkit-text-stroke-color: rgb(255, 255, 255);
+    font-size: 50px;
     cursor: pointer;
     display: none;
     line-height: 0;
