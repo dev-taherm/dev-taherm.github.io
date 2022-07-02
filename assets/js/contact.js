@@ -1,7 +1,7 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.8.4/firebase-app.js";
 import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.8.4/firebase-analytics.js";
-import { getDatabase, ref, set } from "https://www.gstatic.com/firebasejs/9.8.4/firebase-database.js";
+import { getDatabase,ref, push, set } from "https://www.gstatic.com/firebasejs/9.8.4/firebase-database.js";
 
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
@@ -22,35 +22,43 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 const database = getDatabase(app);
+const postListRef = ref(database, 'latter');
+const newPostRef = push(postListRef);
 
 
 
-document.getElementById("contact").addEventListener("submit", submitForm);
+document.getElementById("contactt").addEventListener("submit", submitForm);
 
 function submitForm(e) {
     e.preventDefault();
 
-    var name = document.getElementById("name").value;
-    var email = document.getElementById("email").value;
-    var subject = document.getElementById("subject").value;
-    var latter = document.getElementById("latter").value;
+   
 
-    function writeUserData(name, email, subject, latter) {
-        set(ref(database, 'contact/' + userId), {
+    
+        var name = document.getElementById("name").value;
+        var email = document.getElementById("email").value;
+        var subject = document.getElementById("subject").value;
+        var latter = document.getElementById("latter").value;
+        set(newPostRef,{
             name: name,
             email: email,
             subject: subject,
             latter: latter
-        })
-        then(() => {
-                alert('user created!');
-            })
-            .catch((error) => {
-                const errorCode = error.code;
-                const errorMessage = error.message;
+        });
 
-                alert(errorMessage);
-            });
+        document.querySelector(".sent-message").style.display = "block";
+
+        setTimeout(() => {
+            document.querySelector(".sent-message").style.display = "none";
+          }, 3000);
+        
+          //   reset the form
+          document.getElementById('contactt').reset();
+        
 
     }
-}
+    
+       
+    
+        
+      

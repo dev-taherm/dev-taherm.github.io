@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="en">
+  <head>
+  	<title>Table 02</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+	<link href='https://fonts.googleapis.com/css?family=Roboto:400,100,300,700' rel='stylesheet' type='text/css'>
+
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+	
+	<link rel="stylesheet" href="assets/css/style copy.css">
+
+	</head>
+	<body>
+	<section class="ftco-section">
+		<div class="container">
+			<div class="row justify-content-center">
+				<div class="col-md-6 text-center mb-5">
+					<h2 class="heading-section">Massages</h2>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<div class="table-wrap">
+						<table class="table">
+						  <thead class="thead-dark">
+						    <tr>
+                              
+						      <th>Email</th>
+						      <th>Name</th>
+						      <th>subject</th>
+						      <th>latter</th>
+						      
+						    </tr>
+						  </thead>
+						  <tbody id="tboday1">
+						    
+						   
+						  </tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section> 
+    <script type="module">
+        // Import the functions you need from the SDKs you need
+import { initializeApp } from "https://www.gstatic.com/firebasejs/9.8.4/firebase-app.js";
+import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.8.4/firebase-analytics.js";
+import { getDatabase, ref, child, onValue,  get } from "https://www.gstatic.com/firebasejs/9.8.4/firebase-database.js";
+
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
+
+// Your web app's Firebase configuration
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+const firebaseConfig = {
+    apiKey: "AIzaSyAUSW8nqlPu6D7sm15Yz03ZsInVhDylglc",
+    authDomain: "personal-c0961.firebaseapp.com",
+    projectId: "personal-c0961",
+    storageBucket: "personal-c0961.appspot.com",
+    messagingSenderId: "912397286131",
+    appId: "1:912397286131:web:2dd93b7439ca6a9f0e9586",
+    measurementId: "G-CF9CDWZCLB"
+};
+
+const app = initializeApp(firebaseConfig);
+const analytics = getAnalytics(app);
+const database = getDatabase(app);
+
+        var latterNo=0;
+        var tbody= document.getElementById('tboday1');
+        function addIteamToTable(email, name, subject, latter){
+            let trow= document.createElement("tr");
+            let td1= document.createElement("td");
+            let td2= document.createElement("td");
+            let td3= document.createElement("td");
+            let td4= document.createElement("td");
+            
+
+           
+            td1.innerHTML= email;
+            td2.innerHTML= name;
+            td3.innerHTML= subject;
+            td4.innerHTML= latter;
+
+            trow.appendChild(td1);
+            trow.appendChild(td2);
+            trow.appendChild(td3);
+            trow.appendChild(td4);
+            
+
+            tbody.appendChild(trow);
+            
+        }
+
+        function addAllItemsToTable(TheLatter){
+            latterNo=0;
+            tbody.innerHTML="";
+            TheLatter.forEach(element => {
+                addIteamToTable(element.email, element.name, element.subject, element.latter)
+            });
+        }
+
+        function getAllDataOnce(){
+            const dbRef = ref(database);
+
+            get(child(dbRef,"latter"))
+            .then((snapshot)=>{
+                var latters=[];
+                snapshot.forEach(childSnapshot => {
+                    latters.push(childSnapshot.val());
+                });
+                addAllItemsToTable(latters);
+            })
+        }
+
+        window.onload = getAllDataOnce; 
+    </script>
+
+	<script src="assets/js/jquery.min.js"></script>
+  <script src="assets/js/popper.js"></script>
+  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  
+
+	</body>
+</html>
+
